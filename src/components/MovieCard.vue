@@ -1,0 +1,6 @@
+<script setup>
+import { computed } from 'vue'; import { useMovieStore } from '../stores/movie'
+const props=defineProps({movie:{type:Object,required:true},index:{type:Number,default:0}}), store=useMovieStore(); const favored=computed(()=>store.favoriteIds.has(Number(props.movie.movieid)))
+const fallback=(e)=>{e.target.src='/poster-placeholder.svg';e.target.onerror=null}; const types=computed(()=>String(props.movie.typelist||'').split(/[,|/]/).filter(Boolean).slice(0,2))
+</script>
+<template><article class="movie-card reveal" :style="{'--delay':`${Math.min(index,12)*45}ms`}"><RouterLink :to="`/movie/${movie.movieid}`" class="poster-wrap"><img :src="movie.picture||'/poster-placeholder.svg'" :alt="movie.moviename" loading="lazy" @error="fallback"><span class="score">&#9733; {{movie.averating.toFixed(1)}}</span><span class="card-play">&#9654;</span></RouterLink><div class="card-body"><div class="card-title-row"><RouterLink :to="`/movie/${movie.movieid}`"><h3>{{movie.moviename}}</h3></RouterLink><button class="heart" :class="{active:favored}" :aria-label="favored?'取消收藏':'收藏'" @click="store.toggleFavorite(movie)">{{favored?'\u2665':'\u2661'}}</button></div><div class="tags"><span v-for="type in types" :key="type">{{type}}</span></div><p>{{movie.description}}</p></div></article></template>

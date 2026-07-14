@@ -1,0 +1,28 @@
+！！！必读须知！！！
+压缩包里是任务 2 的 Vue 前端源码，已经完成登录、电影首页、电影详情、收藏、推荐、用户设置、页面动效和电影海报展示。  
+运行前先启动任务 3 的后端，然后解压前端，在目录内执行：
+npm install
+npm run dev
+浏览器访问：
+http://localhost:5173
+测试账号：
+test / 123456
+后端默认地址为：
+http://localhost:8080
+如果后端端口不是 8080，需要修改前端 .env：
+VITE_API_BASE_URL=/api
+VITE_BACKEND_TARGET=http://localhost:实际后端端口
+前端使用这些后端接口：
+GET  /api/login
+GET  /api/movie/list
+GET  /api/movie/click
+POST /api/rating/add
+GET  /api/rec/list
+注意：
+收藏数据保存在浏览器 localStorage。
+推荐数据库有结果时优先显示数据库推荐；没有结果时前端会根据收藏类型和评分生成临时推荐。
+评分接口提交格式为 application/x-www-form-urlencoded，不是 JSON。
+Kafka 没启动时，点击和评分的实时事件可能报错；Kafka 部分由任务 5 负责。
+电影海报地址已经更新在我本机数据库中，但压缩包不包含数据库。任务 3 合并时需要把 movieinfo.picture 更新为有效海报 URL，否则会显示占位图。
+
+最后一点最重要：压缩包只有前端源码，数据库和任务 3 后端没有打包进去。
