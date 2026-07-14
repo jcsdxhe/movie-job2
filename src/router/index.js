@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import HomeView from '../views/HomeView.vue'
 import DetailView from '../views/DetailView.vue'
@@ -6,7 +6,7 @@ import FavoritesView from '../views/FavoritesView.vue'
 import RecommendView from '../views/RecommendView.vue'
 import SettingsView from '../views/SettingsView.vue'
 
-const router = createRouter({ history: createWebHistory(), scrollBehavior: () => ({ top: 0 }), routes: [
+const router = createRouter({ history: import.meta.env.VITE_DEMO_MODE === 'true' ? createWebHashHistory() : createWebHistory(), scrollBehavior: () => ({ top: 0 }), routes: [
   { path: '/login', component: LoginView, meta: { guest: true } },
   { path: '/', component: HomeView },
   { path: '/movie/:id', component: DetailView },

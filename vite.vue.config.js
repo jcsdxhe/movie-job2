@@ -4,12 +4,12 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
+    base: mode === 'production' ? '/site/' : '/',
+    publicDir: false,
     plugins: [vue()],
     server: {
       port: 5173,
-      proxy: {
-        '/api': { target: env.VITE_BACKEND_TARGET || 'http://localhost:8080', changeOrigin: true }
-      }
+      proxy: { '/api': { target: env.VITE_BACKEND_TARGET || 'http://localhost:8080', changeOrigin: true } }
     }
   }
 })
