@@ -4,3 +4,5 @@ dist-pages/
 public/site/
 .DS_Store
 *.log
+.playwright-cli/
+output/
