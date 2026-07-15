@@ -7,8 +7,18 @@ import { demoMovies } from '../data/demoMovies'
 
 const trendRef = ref(), actionRef = ref(), hourRef = ref(), userRef = ref(), movieRef = ref(), ratingRef = ref()
 const charts = []
-const movieNames = new Map(demoMovies.map(movie => [Number(movie.movieid), movie.moviename]))
-const movieLabel = id => movieNames.get(Number(id)) || `电影 #${id}`
+// job5 日志只记录 movieid；这里补充项目 SQL 中的片名，并覆盖日志里额外出现的真实电影编号。
+const movieNames = new Map([
+  ...demoMovies.map(movie => [Number(movie.movieid), movie.moviename]),
+  [2, '流浪地球2'], [3, '满江红'], [6, '哪吒之魔童降世'], [7, '复仇者联盟4'],
+  [9, '疯狂动物城'], [10, '唐人街探案'], [11, '哈利波特与魔法石'], [12, '我不是药神'],
+  [13, '速度与激情7'], [15, '红海行动'], [17, '西虹市首富'], [19, '变形金刚'],
+  [20, '隐秘的角落'], [23, '八佰'], [25, '毒液'], [26, '夏洛特烦恼'], [27, '疯狂的石头'],
+  [29, '独行月球'], [31, '美丽人生'], [32, '触不可及'], [33, '无间道'], [34, '怦然心动'],
+  [35, '当幸福来敲门'], [36, '大话西游'], [37, '海上钢琴师'], [38, '放牛班的春天'],
+  [39, '寄生虫'], [40, '绿皮书']
+])
+const movieLabel = id => movieNames.get(Number(id)) || `电影 ${id}`
 const axis = { axisLine: { lineStyle: { color: '#353846' } }, axisLabel: { color: '#8f94a5' }, splitLine: { lineStyle: { color: 'rgba(255,255,255,.06)' } } }
 
 function init(el, option) {
